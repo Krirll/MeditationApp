@@ -9,7 +9,6 @@ class HelloActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hello_activity)
-        //TODO переход с помощбю логотипа
         findViewById<Button>(R.id.helloEnter).setOnClickListener {
             startActivity(
                 Intent(
