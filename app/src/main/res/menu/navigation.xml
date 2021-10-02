@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@drawable/logo"
+        android:enabled="true"
+        android:title="" />
+
+    <item
+        android:icon="@drawable/sounds"
+        android:enabled="true"
+        android:title="" />
+
+    <item
+        android:icon="@drawable/profile"
+        android:enabled="true"
+        android:title="" />
+</menu>

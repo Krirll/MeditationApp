@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#2D3B38"
+    android:background="@color/green"
     android:foreground="@drawable/flowers"
     android:foregroundGravity="bottom"
     android:orientation="vertical"
@@ -29,6 +29,7 @@
     <EditText
         android:id="@+id/login"
         android:hint="@string/email"
+        android:text="junior@wsr.ru"
         android:textSize="20sp"
         android:inputType="textEmailAddress"
         android:layout_marginStart="20dp"
@@ -41,6 +42,7 @@
     <EditText
         android:id="@+id/password"
         android:hint="@string/password"
+        android:text="junior"
         android:textSize="20sp"
         android:inputType="textPassword"
         android:layout_marginStart="20dp"
