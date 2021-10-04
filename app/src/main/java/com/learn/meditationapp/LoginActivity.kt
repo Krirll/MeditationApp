@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
             val password = findViewById<EditText>(R.id.password)
             if (email.text.toString().matches("""\w+@\w+\.\w+""".toRegex()) && password.text.toString().matches("""\w+""".toRegex())) {
                 RetrofitObject.init()
-                var account: User?
+                var account: User? = null
                 val user = User(email.text.toString(), password.text.toString())
                 val call = RetrofitObject.service?.postUser(user)
                 call?.enqueue(object : Callback<User> {
