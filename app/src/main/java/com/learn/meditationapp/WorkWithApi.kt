@@ -4,17 +4,22 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import java.io.Serializable
 
-class GetUser : Serializable {
+class User(email: String, password: String) : Serializable {
     @SerializedName ("id")
     @Expose
-    var id : Int? = null
+    var id : String? = null
 
     @SerializedName ("email")
     @Expose
-    var email : String? = null
+    var email : String? = email
+
+    @SerializedName ("password")
+    @Expose
+    var password : String? = password
 
     @SerializedName ("nickName")
     @Expose
@@ -26,10 +31,10 @@ class GetUser : Serializable {
 
     @SerializedName ("token")
     @Expose
-    var token : Int? = null
+    var token : String? = null
 }
 
 interface Queries {
-    @POST("/user/login")
-    fun postUser(@Body email : String, password : String) : Call<GetUser>
+    @POST("user/login")
+    fun postUser(@Body user : User ) : Call<User>
 }
