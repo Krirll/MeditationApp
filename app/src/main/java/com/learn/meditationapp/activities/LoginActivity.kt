@@ -1,4 +1,4 @@
-package com.learn.meditationapp
+package com.learn.meditationapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.learn.meditationapp.R
+import com.learn.meditationapp.API.RetrofitObject
+import com.learn.meditationapp.API.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

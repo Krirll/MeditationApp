@@ -1,4 +1,4 @@
-package com.learn.meditationapp
+package com.learn.meditationapp.adapters
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.learn.meditationapp.API.Feel
+import com.learn.meditationapp.API.Feelings
+import com.learn.meditationapp.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +17,7 @@ import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.net.URL
 
-class RecyclerViewAdapter(private val list : List<Feelings>) : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
+class MainAdapter(private val list : List<Feel>) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         var feelImage : ImageView = itemView.findViewById(R.id.feelImage)
@@ -28,15 +31,17 @@ class RecyclerViewAdapter(private val list : List<Feelings>) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.feelText.text = list[position].feelText
-        CoroutineScope(Dispatchers.IO).launch {
+        holder.feelText.text = list[position].title
+        CoroutineScope(Dispatchers.Main).launch {
+            val image : Drawable
             withContext(Dispatchers.IO) {
-                holder.feelImage.setImageDrawable(
+                image =
                     Drawable.createFromStream(
-                        URL(list[position].feelImage).content as InputStream, "src"
+                        URL(list[position].image).content as InputStream,
+                        "src"
                     )
-                )
             }
+            holder.feelImage.setImageDrawable(image)
         }
     }
 

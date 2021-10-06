@@ -10,19 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MeditationAppHaktaКО2021">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".HelloActivity"
+            android:name=".activities.HelloActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

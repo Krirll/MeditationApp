@@ -1,5 +1,6 @@
-package com.learn.meditationapp
+package com.learn.meditationapp.API
 
+import com.learn.meditationapp.API.Queries
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
