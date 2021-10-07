@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.learn.meditationapp.API.Feel
@@ -50,6 +49,7 @@ class MainFragment : Fragment() {
                             for (feel in response.body()?.data!!) {
                                 list.add(feel)
                             }
+                            recyclerView.adapter = MainAdapter(list)
                         }
                     }
 
@@ -58,13 +58,6 @@ class MainFragment : Fragment() {
                     }
                 })
             }
-            recyclerView.adapter = MainAdapter(list)
-        }
-    }
-
-    companion object {
-        fun newInstance(): MainFragment {
-            return MainFragment()
         }
     }
 }

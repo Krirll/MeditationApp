@@ -103,4 +103,9 @@
     <string name="exit">exit</string>
     <string name="welcome">С возвращением, %s!</string>
     <string name="question">Каким ты себя ощущаешь сегодня?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="blockName">Заголовок блока</string>
+    <string name="discription">Кратенькое описание блока с двумя строчками</string>
+    <string name="more">подробнее</string>
 </resources>

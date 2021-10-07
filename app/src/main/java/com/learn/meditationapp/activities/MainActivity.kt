@@ -8,10 +8,13 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.learn.meditationapp.R
 import com.learn.meditationapp.API.User
 import com.learn.meditationapp.fragments.MainFragment
+import com.learn.meditationapp.fragments.MusicFragment
+import com.learn.meditationapp.fragments.ProfileFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,23 +35,32 @@ class MainActivity : AppCompatActivity() {
             }
             findViewById<ImageView>(R.id.avatar).setImageDrawable(image)
         }
-        //todo переписать в FragmentManager
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<MainFragment>(R.id.fragment, args = bundleOf("NAME" to user.nickName))
-            }
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            add<MainFragment>(R.id.fragment, args = bundleOf("NAME" to user.nickName))
         }
         findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.main -> {
-                    Toast.makeText(this, "main", Toast.LENGTH_SHORT).show(); true
+                    supportFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace<MainFragment>(R.id.fragment,  args = bundleOf("NAME" to user.nickName))
+                    }
+                    true
                 }
                 R.id.music -> {
-                    Toast.makeText(this, "music", Toast.LENGTH_SHORT).show(); true
+                    supportFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace<MusicFragment>(R.id.fragment)
+                    }
+                    true
                 }
                 R.id.profile -> {
-                    Toast.makeText(this, "profile", Toast.LENGTH_SHORT).show(); true
+                    supportFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace<ProfileFragment>(R.id.fragment,  args = bundleOf("NAME" to user.nickName, "AVATAR" to user.avatar))
+                    }
+                    true
                 }
                 else -> true
             }
