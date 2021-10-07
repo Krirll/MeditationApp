@@ -108,4 +108,5 @@
     <string name="blockName">Заголовок блока</string>
     <string name="discription">Кратенькое описание блока с двумя строчками</string>
     <string name="more">подробнее</string>
+    <string name="musicFragment">Тут будет прослушивание</string>
 </resources>

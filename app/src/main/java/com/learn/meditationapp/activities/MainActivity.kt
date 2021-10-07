@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.main -> {
+                    //todo visibility кнопки EXIT
                     supportFragmentManager.commit {
                         setReorderingAllowed(true)
                         replace<MainFragment>(R.id.fragment,  args = bundleOf("NAME" to user.nickName))
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
+                    //todo visibility кнопки EXIT
                     supportFragmentManager.commit {
                         setReorderingAllowed(true)
                         replace<ProfileFragment>(R.id.fragment,  args = bundleOf("NAME" to user.nickName, "AVATAR" to user.avatar))
