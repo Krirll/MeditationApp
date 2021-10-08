@@ -3,6 +3,8 @@ package com.learn.meditationapp.activities
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -40,9 +42,11 @@ class MainActivity : AppCompatActivity() {
             add<MainFragment>(R.id.fragment, args = bundleOf("NAME" to user.nickName))
         }
         findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnItemSelectedListener {
+            val button = findViewById<Button>(R.id.exit)
             when (it.itemId) {
                 R.id.main -> {
-                    //todo visibility кнопки EXIT
+                    if (button.visibility == View.VISIBLE)
+                        button.visibility = View.GONE
                     supportFragmentManager.commit {
                         setReorderingAllowed(true)
                         replace<MainFragment>(R.id.fragment,  args = bundleOf("NAME" to user.nickName))
@@ -50,6 +54,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.music -> {
+                    if (button.visibility == View.VISIBLE)
+                        button.visibility = View.GONE
                     supportFragmentManager.commit {
                         setReorderingAllowed(true)
                         replace<MusicFragment>(R.id.fragment)
@@ -57,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
-                    //todo visibility кнопки EXIT
+                    if (button.visibility == View.GONE)
+                        button.visibility = View.VISIBLE
                     supportFragmentManager.commit {
                         setReorderingAllowed(true)
                         replace<ProfileFragment>(R.id.fragment,  args = bundleOf("NAME" to user.nickName, "AVATAR" to user.avatar))

@@ -48,12 +48,40 @@ class Feel : Serializable {
     var position : Double? = null
 }
 
+class Quotes : Serializable {
+
+    @SerializedName ("data")
+    @Expose
+    var data : List<Quote>? = null
+
+}
+
+class Quote : Serializable {
+
+    @SerializedName ("title")
+    @Expose
+    var title : String? = null
+
+    @SerializedName ("image")
+    @Expose
+    var image : String? = null
+
+    @SerializedName ("description")
+    @Expose
+    var description : String? = null
+
+}
+
 interface Queries {
+
     @POST("user/login")
     fun postUser(@Body user : User) : Call<User>
 
     @GET("feelings")
     fun getFeelings() : Call<Feelings>
+
+    @GET("quotes")
+    fun getQuotes() : Call<Quotes>
 
 
 }
