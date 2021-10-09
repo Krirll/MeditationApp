@@ -1,7 +1,7 @@
 package com.learn.meditationapp.adapters
 
-import android.graphics.drawable.Drawable
-import android.renderscript.ScriptGroup
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.learn.meditationapp.Photo
+import com.google.android.material.internal.ContextUtils.getActivity
 import com.learn.meditationapp.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.InputStream
-import java.net.URL
+import com.learn.meditationapp.activities.MainActivity
+import com.learn.meditationapp.photo.Photo
+import com.learn.meditationapp.photo.PhotoFromGallery
 
-class PhotoAdapter(private val list : List<Photo>) : RecyclerView.Adapter<PhotoAdapter.MyViewHolder>() {
+class PhotoAdapter(private val list : MutableList<Photo>,
+                   private val recyclerView : RecyclerView
+) : RecyclerView.Adapter<PhotoAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         var time : TextView? = itemView.findViewById(R.id.time)
@@ -35,24 +34,25 @@ class PhotoAdapter(private val list : List<Photo>) : RecyclerView.Adapter<PhotoA
         return MyViewHolder(itemView)
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if (position == list.size) {
             holder.add?.setOnClickListener {
-
+                getActivity(holder.itemView.context)?.startActivityForResult(
+                    Intent(Intent.ACTION_PICK).apply {
+                        type = "image/*"
+                    },
+                    MainActivity.CODE
+                )
+                //todo удалить, нужно в мэйн активити добавлять элемент к списку
+                //      сохранять его в память и обновлять адаптер RecyclerView
+                //list.add(PhotoFromGallery.photo!!)
+                //recyclerView.adapter = PhotoAdapter(list, recyclerView)
             }
         }
         else {
             holder.time?.text = list[position].time
-            CoroutineScope(Dispatchers.Main).launch {
-                var image : Drawable
-                withContext(Dispatchers.IO) {
-                    image =
-                        Drawable.createFromStream(
-                            URL(list[position].image).content as InputStream, "src"
-                        )
-                }
-                holder.image?.setImageDrawable(image)
-            }
+            holder.image?.setImageDrawable(list[position].image)
         }
     }
 

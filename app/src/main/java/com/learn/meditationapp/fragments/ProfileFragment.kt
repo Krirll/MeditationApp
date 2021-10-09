@@ -7,22 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
-import com.learn.meditationapp.API.RetrofitObject
-import com.learn.meditationapp.DataBase
-import com.learn.meditationapp.Photo
 import com.learn.meditationapp.R
 import com.learn.meditationapp.adapters.PhotoAdapter
+import com.learn.meditationapp.photo.Photo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileFragment : Fragment() {
 
@@ -47,17 +45,13 @@ class ProfileFragment : Fragment() {
         }
         view.findViewById<TextView>(R.id.nickProfile).text = requireArguments().getString("NAME")
         val recyclerView = view.findViewById<RecyclerView>(R.id.photos)
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
+        recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         CoroutineScope(Dispatchers.Main).launch {
-            val dataBase : DataBase
-            val list : List<Photo>
+            val list : MutableList<Photo> = mutableListOf()
             withContext(Dispatchers.IO) {
-                dataBase =
-                    Room.databaseBuilder(view.context, DataBase::class.java, "photos")
-                        .build()
-                list = dataBase.photoDao().getAll()
+                //list = ActualDataBase.getAll()
             }
-            recyclerView.adapter = PhotoAdapter(list)
+            recyclerView.adapter = PhotoAdapter(list as MutableList<Photo>, recyclerView)
         }
     }
 }
