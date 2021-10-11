@@ -9,18 +9,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.learn.meditationapp.R
 import com.learn.meditationapp.adapters.PhotoAdapter
+import com.learn.meditationapp.photo.DataBaseManager
 import com.learn.meditationapp.photo.Photo
+import com.learn.meditationapp.photo.PhotoManager
+import com.learn.meditationapp.photo.TruePhoto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.net.URL
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ProfileFragment : Fragment() {
 
@@ -44,14 +44,16 @@ class ProfileFragment : Fragment() {
             view.findViewById<ImageView>(R.id.avatarProfile).setImageDrawable(image)
         }
         view.findViewById<TextView>(R.id.nickProfile).text = requireArguments().getString("NAME")
-        val recyclerView = view.findViewById<RecyclerView>(R.id.photos)
-        recyclerView.layoutManager = GridLayoutManager(view.context, 2)
+        PhotoManager.recyclerView = view.findViewById(R.id.photos)
+        PhotoManager.recyclerView?.layoutManager = GridLayoutManager(view.context, 2)
         CoroutineScope(Dispatchers.Main).launch {
-            val list : MutableList<Photo> = mutableListOf()
+            val list : List<Photo>?
             withContext(Dispatchers.IO) {
-                //list = ActualDataBase.getAll()
+                DataBaseManager.init(view.context)
+                list = DataBaseManager.db?.photoDao()?.getAll()
             }
-            recyclerView.adapter = PhotoAdapter(list as MutableList<Photo>, recyclerView)
+            PhotoManager.getPhotosByUri(list)
+            PhotoManager.recyclerView?.adapter = PhotoAdapter(PhotoManager.list as MutableList<TruePhoto>)
         }
     }
 }

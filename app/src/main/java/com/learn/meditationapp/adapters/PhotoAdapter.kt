@@ -13,11 +13,9 @@ import com.google.android.material.internal.ContextUtils.getActivity
 import com.learn.meditationapp.R
 import com.learn.meditationapp.activities.MainActivity
 import com.learn.meditationapp.photo.Photo
-import com.learn.meditationapp.photo.PhotoFromGallery
+import com.learn.meditationapp.photo.TruePhoto
 
-class PhotoAdapter(private val list : MutableList<Photo>,
-                   private val recyclerView : RecyclerView
-) : RecyclerView.Adapter<PhotoAdapter.MyViewHolder>() {
+class PhotoAdapter(private val list : MutableList<TruePhoto>) : RecyclerView.Adapter<PhotoAdapter.MyViewHolder>() {
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         var time : TextView? = itemView.findViewById(R.id.time)
@@ -44,15 +42,11 @@ class PhotoAdapter(private val list : MutableList<Photo>,
                     },
                     MainActivity.CODE
                 )
-                //todo удалить, нужно в мэйн активити добавлять элемент к списку
-                //      сохранять его в память и обновлять адаптер RecyclerView
-                //list.add(PhotoFromGallery.photo!!)
-                //recyclerView.adapter = PhotoAdapter(list, recyclerView)
             }
         }
         else {
             holder.time?.text = list[position].time
-            holder.image?.setImageDrawable(list[position].image)
+            holder.image?.setImageBitmap(list[position].image)
         }
     }
 
