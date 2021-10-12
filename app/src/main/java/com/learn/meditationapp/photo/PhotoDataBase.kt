@@ -18,8 +18,8 @@ interface PhotoDao {
     @Insert
     fun insert(photo: Photo)
 
-    @Delete
-    fun delete(photo: Photo)
+    @Query ("DELETE FROM Photo WHERE photoUri = :uri")
+    fun delete(uri : String)
 
     @Query ("SELECT * FROM Photo")
     fun getAll() : List<Photo>

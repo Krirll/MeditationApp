@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.learn.meditationapp.R
 import com.learn.meditationapp.activities.MainActivity
-import com.learn.meditationapp.photo.Photo
+import com.learn.meditationapp.activities.ShowActivity
 import com.learn.meditationapp.photo.TruePhoto
 
 class PhotoAdapter(private val list : MutableList<TruePhoto>) : RecyclerView.Adapter<PhotoAdapter.MyViewHolder>() {
@@ -46,7 +46,14 @@ class PhotoAdapter(private val list : MutableList<TruePhoto>) : RecyclerView.Ada
         }
         else {
             holder.time?.text = list[position].time
-            holder.image?.setImageBitmap(list[position].image)
+            holder.image?.setImageURI(list[position].image)
+            holder.itemView.setOnClickListener {
+                holder.itemView.context.startActivity(
+                    Intent(holder.itemView.context, ShowActivity::class.java).apply {
+                        putExtra("INDEX", holder.adapterPosition)
+                    }
+                )
+            }
         }
     }
 

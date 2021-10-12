@@ -10,11 +10,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import com.learn.meditationapp.R
-import com.learn.meditationapp.adapters.PhotoAdapter
 import com.learn.meditationapp.photo.DataBaseManager
 import com.learn.meditationapp.photo.Photo
 import com.learn.meditationapp.photo.PhotoManager
-import com.learn.meditationapp.photo.TruePhoto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,17 +41,17 @@ class ProfileFragment : Fragment() {
             }
             view.findViewById<ImageView>(R.id.avatarProfile).setImageDrawable(image)
         }
-        view.findViewById<TextView>(R.id.nickProfile).text = requireArguments().getString("NAME")
+        val nick =  requireArguments().getString("NAME")
+        view.findViewById<TextView>(R.id.nickProfile).text = nick
         PhotoManager.recyclerView = view.findViewById(R.id.photos)
         PhotoManager.recyclerView?.layoutManager = GridLayoutManager(view.context, 2)
         CoroutineScope(Dispatchers.Main).launch {
             val list : List<Photo>?
             withContext(Dispatchers.IO) {
-                DataBaseManager.init(view.context)
+                DataBaseManager.init(view.context, nick!!)
                 list = DataBaseManager.db?.photoDao()?.getAll()
             }
             PhotoManager.getPhotosByUri(list)
-            PhotoManager.recyclerView?.adapter = PhotoAdapter(PhotoManager.list as MutableList<TruePhoto>)
         }
     }
 }

@@ -18,6 +18,7 @@ import com.learn.meditationapp.API.User
 import com.learn.meditationapp.fragments.MainFragment
 import com.learn.meditationapp.fragments.MusicFragment
 import com.learn.meditationapp.fragments.ProfileFragment
+import com.learn.meditationapp.photo.PhotoManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,10 +29,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var user : User
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        val user = intent.getSerializableExtra(ACCOUNT) as User
+        user = intent.getSerializableExtra(ACCOUNT) as User
         CoroutineScope(Dispatchers.Main).launch {
             val image : Drawable
             withContext(Dispatchers.IO) {
@@ -68,7 +70,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.profile -> {
                     if (button.visibility == View.GONE)
                         button.visibility = View.VISIBLE
-                    val activity = this
                     supportFragmentManager.commit {
                         setReorderingAllowed(true)
                         replace<ProfileFragment>(R.id.fragment,
@@ -81,21 +82,25 @@ class MainActivity : AppCompatActivity() {
                 else -> true
             }
         }
+        findViewById<Button>(R.id.exit).setOnClickListener {
+            //todo сохранение почты пользователя
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == CODE && data?.data != null) {
-            //SimpleDateFormat("hh:mm", Locale.ROOT).format(Date()),
-            //Drawable.createFromStream(contentResolver.openInputStream(data.data!!), "")
-            //todo 1. передавать в функцию PhotoManager полученную картинку (там же преобразовать ее в Bitmap)
-            //     2. сохранять ее в БД
-            //     3. сохранять ее в память, добавить в список и обновлять адаптер
+            PhotoManager.savePhotoInMemory(data.data!!, this, user.nickName!!)
         }
     }
 
     companion object {
         const val ACCOUNT = "ACCOUNT"
         const val CODE = 100
+    }
+
+    override fun onBackPressed() {
+        PhotoManager.list = null
+        finish()
     }
 }

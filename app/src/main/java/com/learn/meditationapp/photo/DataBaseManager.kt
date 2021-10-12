@@ -6,8 +6,7 @@ import androidx.room.Room
 object DataBaseManager {
     var db : DataBase? = null
 
-    fun init(context: Context) {
-        if (db == null)
-            db = Room.databaseBuilder(context, DataBase::class.java, "photos").build()
+    fun init(context: Context, nick : String) {
+            db = Room.databaseBuilder(context, DataBase::class.java, "photos_$nick").build()
     }
 }

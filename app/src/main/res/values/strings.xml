@@ -109,4 +109,6 @@
     <string name="discription">Кратенькое описание блока с двумя строчками</string>
     <string name="more">подробнее</string>
     <string name="musicFragment">Тут будет прослушивание</string>
+    <string name="cancel">отмена</string>
+    <string name="delete">удалить</string>
 </resources>
