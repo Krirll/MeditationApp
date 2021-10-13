@@ -2,6 +2,7 @@ package com.learn.meditationapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import android.widget.ImageView
 import com.learn.meditationapp.R
@@ -14,11 +15,33 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ShowActivity : AppCompatActivity() {
+    private var isScaled = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.show_activity)
         val index = intent.getIntExtra("INDEX", 0)
-        findViewById<ImageView>(R.id.imageGallery).setImageURI(PhotoManager.list?.get(index)?.image)
+        val image = findViewById<ImageView>(R.id.imageGallery)
+        image.setImageURI(PhotoManager.list?.get(index)?.image)
+        var doubleClick = false
+        image.setOnClickListener {
+            val r = Runnable { doubleClick = false }
+            if (doubleClick) {
+                if (!isScaled) {
+                    image.scaleX *= 2
+                    image.scaleY *= 2
+                    isScaled = true
+                }
+                else {
+                    image.scaleX /= 2
+                    image.scaleY /= 2
+                    isScaled = false
+                }
+                doubleClick = false
+            } else {
+                doubleClick = true
+                Handler().postDelayed(r, 500)
+            }
+        }
         findViewById<Button>(R.id.cancel).setOnClickListener {
            finish()
         }
@@ -33,6 +56,7 @@ class ShowActivity : AppCompatActivity() {
                 finish()
             }
         }
+
     }
 
     override fun onBackPressed() {

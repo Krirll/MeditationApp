@@ -3,7 +3,6 @@ package com.learn.meditationapp.photo
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore.Images.Media.getBitmap
 import androidx.core.net.toUri

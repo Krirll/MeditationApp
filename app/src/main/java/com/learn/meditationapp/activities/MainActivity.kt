@@ -18,6 +18,7 @@ import com.learn.meditationapp.API.User
 import com.learn.meditationapp.fragments.MainFragment
 import com.learn.meditationapp.fragments.MusicFragment
 import com.learn.meditationapp.fragments.ProfileFragment
+import com.learn.meditationapp.loginData.LoginObject
 import com.learn.meditationapp.photo.PhotoManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +26,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.net.URL
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var user : User
+    private var exitIsPressed = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -83,8 +83,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         findViewById<Button>(R.id.exit).setOnClickListener {
-            //todo сохранение почты пользователя
+            startActivity(Intent(this, LoginActivity::class.java).apply { putExtra(LoginActivity.EMAIL, user.email) })
+            LoginObject.saveData(user.email!!, "", this)
+            exitIsPressed = true
+            finish()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (!exitIsPressed)
+            LoginObject.saveData(user.email!!, user.password!!, this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
