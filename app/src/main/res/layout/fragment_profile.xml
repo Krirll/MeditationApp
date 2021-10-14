@@ -9,40 +9,42 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
-<LinearLayout
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:cardCornerRadius="80dp"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/avatarProfile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/flowers" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/nickProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/alegreya_medium"
-        android:layout_marginTop="15dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/photos"
+    <LinearLayout
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="80dp"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/avatarProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/flowers" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/nickProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/alegreya_medium"
+            android:layout_marginTop="15dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/photos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
 </ScrollView>

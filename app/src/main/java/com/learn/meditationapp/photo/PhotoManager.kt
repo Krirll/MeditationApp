@@ -48,7 +48,7 @@ object PhotoManager {
             file = File(file, "${UUID.randomUUID()}.jpg")
             try {
                 val stream = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
                 stream.flush()
                 stream.close()
 
@@ -58,7 +58,7 @@ object PhotoManager {
                         DataBaseManager.db?.photoDao()?.insert(
                             Photo(
                                 time,
-                                file.absolutePath
+                                file.toUri().toString()
                             )
                         )
                     }
@@ -69,6 +69,7 @@ object PhotoManager {
                         )
                     )
                     recyclerView?.adapter = PhotoAdapter(list!!)
+                    recyclerView?.adapter?.notifyItemInserted(list!!.size - 1)
                 }
             }
             catch (e: IOException) {

@@ -2,6 +2,7 @@ package com.learn.meditationapp.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,12 @@ import com.learn.meditationapp.R
 import com.learn.meditationapp.activities.MainActivity
 import com.learn.meditationapp.activities.ShowActivity
 import com.learn.meditationapp.photo.TruePhoto
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.RequestCreator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PhotoAdapter(private val list : MutableList<TruePhoto>) : RecyclerView.Adapter<PhotoAdapter.MyViewHolder>() {
 
@@ -46,7 +53,11 @@ class PhotoAdapter(private val list : MutableList<TruePhoto>) : RecyclerView.Ada
         }
         else {
             holder.time?.text = list[position].time
-            holder.image?.setImageURI(list[position].image)
+            Picasso.with(holder.itemView.context)
+                .load(list[position].image)
+                .fit()
+                .centerCrop()
+                .into(holder.image)
             holder.itemView.setOnClickListener {
                 holder.itemView.context.startActivity(
                     Intent(holder.itemView.context, ShowActivity::class.java).apply {

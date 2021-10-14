@@ -45,6 +45,7 @@ class ProfileFragment : Fragment() {
         view.findViewById<TextView>(R.id.nickProfile).text = nick
         PhotoManager.recyclerView = view.findViewById(R.id.photos)
         PhotoManager.recyclerView?.layoutManager = GridLayoutManager(view.context, 2)
+        PhotoManager.recyclerView?.setHasFixedSize(true)
         CoroutineScope(Dispatchers.Main).launch {
             val list : List<Photo>?
             withContext(Dispatchers.IO) {
