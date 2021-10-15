@@ -1,5 +1,7 @@
 package com.learn.meditationapp.activities
 
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 class ShowActivity : AppCompatActivity() {
     private var isScaled = false
@@ -54,6 +57,7 @@ class ShowActivity : AppCompatActivity() {
                 withContext(Dispatchers.IO) {
                     DataBaseManager.db?.photoDao()?.delete(PhotoManager.list?.get(index)?.image?.toString()!!)
                 }
+                File(PhotoManager.list?.get(index)?.image?.path!!).delete()
                 PhotoManager.list?.removeAt(index)
                 PhotoManager.recyclerView?.adapter?.notifyItemRemoved(index)
                 finish()

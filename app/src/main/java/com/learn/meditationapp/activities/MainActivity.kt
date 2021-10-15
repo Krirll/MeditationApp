@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.exit).setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java).apply { putExtra(LoginActivity.EMAIL, user.email) })
             LoginObject.saveData(user.email!!, "", this)
+            PhotoManager.list = null
             exitIsPressed = true
             finish()
         }
